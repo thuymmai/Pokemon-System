@@ -25,5 +25,6 @@ public class Pokemon {
 
     @Column(nullable = false)
     private String description;
+
     private boolean final_revolution;
 }
