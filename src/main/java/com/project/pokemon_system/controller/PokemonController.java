@@ -5,10 +5,9 @@ import com.project.pokemon_system.service.PokemonService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController // this annotation marks PokemonController class as a Spring MVC REST controller
 @RequestMapping("api/pokemons") // defines the base URL for all REST APIs within this class
@@ -32,5 +31,37 @@ public class PokemonController {
        PokemonDto savedPokemon = pokemonService.addPokemon(pokemonDto);
 
        return new ResponseEntity<>(savedPokemon, HttpStatus.CREATED);
+    }
+
+    // build Get Pokemon REST API
+    @GetMapping("{id}") // this is a URI template variable, bind the value of this URI to the getPokemon() method parameter
+    public ResponseEntity<PokemonDto> getPokemon(@PathVariable("id") Long pokemonId) {
+        PokemonDto pokemonDto = pokemonService.getPokemon(pokemonId);
+        return new ResponseEntity<>(pokemonDto, HttpStatus.OK);
+    }
+
+    // build Get All Pokemons REST API
+    @GetMapping
+    public ResponseEntity<List<PokemonDto>> getAllPokemons() {
+        List<PokemonDto> pokemons = pokemonService.getAllPokemons();
+        return new ResponseEntity<>(pokemons, HttpStatus.OK);
+    }
+
+    // build Update Pokemon REST API
+    @PutMapping("{id}")
+
+    /* @RequestBody extracts the updated JSON from the HTTP request and it will
+    *  convert that JSON into PokemonDto Java object */
+    public ResponseEntity<PokemonDto> updatePokemon(@RequestBody PokemonDto pokemonDto, @PathVariable("id") Long pokemonId) {
+        PokemonDto updatedPokemon = pokemonService.updatePokemon(pokemonDto, pokemonId);
+        return ResponseEntity.ok(updatedPokemon);
+    }
+
+    // build Delete Pokemon REST API
+    // use @DeleteMapping to map incoming HTTP DELETE request to the deletePokemon() method
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deletePokemon(@PathVariable("id") Long pokemonId) {
+        pokemonService.deletePokemon(pokemonId);
+        return ResponseEntity.ok("Pokemon deleted successfully!");
     }
 }
