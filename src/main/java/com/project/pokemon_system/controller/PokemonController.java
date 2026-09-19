@@ -51,7 +51,8 @@ public class PokemonController {
     @PutMapping("{id}")
 
     /* @RequestBody extracts the updated JSON from the HTTP request and it will
-    *  convert that JSON into PokemonDto Java object */
+    *  convert that JSON into PokemonDto Java object
+    *  @PutMapping updated an entire exsting source, such as all fields here: name, description, and final evolution fields */
     public ResponseEntity<PokemonDto> updatePokemon(@RequestBody PokemonDto pokemonDto, @PathVariable("id") Long pokemonId) {
         PokemonDto updatedPokemon = pokemonService.updatePokemon(pokemonDto, pokemonId);
         return ResponseEntity.ok(updatedPokemon);
@@ -63,5 +64,14 @@ public class PokemonController {
     public ResponseEntity<String> deletePokemon(@PathVariable("id") Long pokemonId) {
         pokemonService.deletePokemon(pokemonId);
         return ResponseEntity.ok("Pokemon deleted successfully!");
+    }
+
+    // build Final Evolution Pokemon REST API (yes it is a Final Evolution)
+    // use @PatchMapping to map incoming HTTP patch request to this particular method.
+    // @PatchMapping is for partially updating existing source. For ex, I only update the Final Evolution field
+    @PatchMapping("{id}/isfinalevolution")
+    public ResponseEntity<PokemonDto> isFinalEvolution(@PathVariable("id") Long pokemonId) {
+        PokemonDto updatedPokemon = pokemonService.isFinalEvolution(pokemonId);
+        return ResponseEntity.ok(updatedPokemon);
     }
 }

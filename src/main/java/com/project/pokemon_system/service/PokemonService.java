@@ -19,4 +19,8 @@ public interface PokemonService {
 
     // define Delete Pokemon method
     void deletePokemon(Long id);
+
+    // define Final Evolution method
+    PokemonDto isFinalEvolution(Long id);
+
 }

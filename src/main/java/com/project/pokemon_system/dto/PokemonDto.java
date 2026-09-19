@@ -16,5 +16,5 @@ public class PokemonDto {
     private Long id;
     private String name;
     private String description;
-    private boolean final_revolution;
+    private boolean final_evolution;
 }

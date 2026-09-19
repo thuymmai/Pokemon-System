@@ -84,7 +84,7 @@ public class PokemonServiceImpl implements PokemonService {
                 .orElseThrow(() -> new ResourceNotFoundException("Pokemon not found with id: " + id));
         pokemon.setName(pokemonDto.getName());
         pokemon.setDescription(pokemonDto.getDescription());
-        pokemon.setFinal_revolution(pokemon.isFinal_revolution());
+        pokemon.setFinal_evolution(pokemon.isFinal_evolution());
 
         // save the pokemon object (in Pokemon pokemon = ...) into database
         // save() performs both INSERT and UPDATE
@@ -100,5 +100,27 @@ public class PokemonServiceImpl implements PokemonService {
         Pokemon pokemon = pokemonRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pokemon not found with id: " + id));
         pokemonRepository.deleteById(id);
+    }
+
+    // the finalEvolutionPokemon() method is only for marking an existing Pokemon
+    @Override
+    public PokemonDto isFinalEvolution(Long id) {
+
+        // retrieve existing pokemon by ID
+        // if a pokemon with a given ID does not exist, throw an exception message
+        Pokemon pokemon = pokemonRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Pokemon not found with id " + id));
+
+        // update the pokemon object (line 110)
+        pokemon.setFinal_evolution(Boolean.TRUE);
+
+        // set the True value for this column
+        // save pokemon object in a database table
+        Pokemon updatedPokemon = pokemonRepository.save(pokemon);
+
+        // the finalEvolutionPokemon() method returns PokemonDto
+        // so convert the updatedPokemon entity object into PokemonDto
+        // pass updatedPokemon as a source and PokemonDto as a destination
+        return modelMapper.map(updatedPokemon, PokemonDto.class);
     }
 }
