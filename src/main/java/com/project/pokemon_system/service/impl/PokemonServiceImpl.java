@@ -123,4 +123,21 @@ public class PokemonServiceImpl implements PokemonService {
         // pass updatedPokemon as a source and PokemonDto as a destination
         return modelMapper.map(updatedPokemon, PokemonDto.class);
     }
+
+    @Override
+    public PokemonDto isNotFinalEvolution(Long id) {
+
+        // first, retrieve the existing Pokemon from the database table
+        Pokemon pokemon = pokemonRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Pokemon not found with id " + id));
+
+        // update the Pokemon's final evolution status
+        pokemon.setFinal_evolution(Boolean.FALSE);
+
+        // call pokemonRepository to save this updated info
+        Pokemon updatedPokemon = pokemonRepository.save(pokemon);
+
+        // convert the updatedPokemon JPA entity into PokemonDto
+        return modelMapper.map(updatedPokemon, PokemonDto.class);
+    }
 }

@@ -23,4 +23,12 @@ public interface PokemonService {
     // define Final Evolution method
     PokemonDto isFinalEvolution(Long id);
 
+    // define method for pokemons that are not in its Final Evolution form
+    PokemonDto isNotFinalEvolution(Long id);
+
+
+
+
+
+
 }

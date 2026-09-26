@@ -69,9 +69,17 @@ public class PokemonController {
     // build Final Evolution Pokemon REST API (yes it is a Final Evolution)
     // use @PatchMapping to map incoming HTTP patch request to this particular method.
     // @PatchMapping is for partially updating existing source. For ex, I only update the Final Evolution field
-    @PatchMapping("{id}/isfinalevolution")
+    @PatchMapping("{id}/final-evolution")
     public ResponseEntity<PokemonDto> isFinalEvolution(@PathVariable("id") Long pokemonId) {
         PokemonDto updatedPokemon = pokemonService.isFinalEvolution(pokemonId);
+        return ResponseEntity.ok(updatedPokemon);
+    }
+
+    // build a isNotFinalEvolution Pokemon REST API (no, it is not in its Final Evolution form)
+    // @PatchMapping for
+    @PatchMapping("{id}/not-final-evolution")
+    public ResponseEntity<PokemonDto> isNotFinalEvolution(@PathVariable("id") Long pokemonId) {
+        PokemonDto updatedPokemon = pokemonService.isNotFinalEvolution(pokemonId);
         return ResponseEntity.ok(updatedPokemon);
     }
 }
