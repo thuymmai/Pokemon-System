@@ -84,7 +84,7 @@ public class PokemonServiceImpl implements PokemonService {
                 .orElseThrow(() -> new ResourceNotFoundException("Pokemon not found with id: " + id));
         pokemon.setName(pokemonDto.getName());
         pokemon.setDescription(pokemonDto.getDescription());
-        pokemon.setFinal_evolution(pokemon.isFinal_evolution());
+        pokemon.setFinal_evolution(pokemonDto.isFinal_evolution());
 
         // save the pokemon object (in Pokemon pokemon = ...) into database
         // save() performs both INSERT and UPDATE

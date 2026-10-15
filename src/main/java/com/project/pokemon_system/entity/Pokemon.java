@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor //to create no-argument constructor for this class
 @AllArgsConstructor //to create an all-argument constructor
 @Entity //specify that this class is an entity
-@Table(name = "pokemon-general") //specify the table details
+@Table(name = "pokemon_general") //specify the table details
 public class Pokemon {
 
     //define instance variables
