@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController // this annotation marks PokemonController class as a Spring MVC REST controller
 @RequestMapping("api/pokemons") // defines the base URL for all REST APIs within this class
 @AllArgsConstructor
